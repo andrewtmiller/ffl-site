@@ -1,7 +1,6 @@
 <script>
     import { goto } from "$app/navigation";
-	import { getDatesActive, getRosterIDFromManagerID, getTeamNameFromTeamManagers } from "$lib/utils/helperFunctions/universalFunctions";
-    import {dynasty} from "$lib/utils/leagueInfo"
+	import { getDatesActive, getRosterIDFromManagerID, getTeamNameFromTeamManagers, getAvatarFromTeamManagers } from "$lib/utils/helperFunctions/universalFunctions";
 
     export let manager, leagueTeamManagers, key;
 
@@ -17,6 +16,10 @@
 
         ({rosterID, year} = getRosterIDFromManagerID(leagueTeamManagers, manager.managerID) || {rosterID, year});
     }
+console.log(manager);
+    let avatar = getAvatarFromTeamManagers(leagueTeamManagers, rosterID);
+
+    let photo = (manager.photo != '/managers/name.jpg') ? manager.photo : avatar;
 
     const commissioner = manager.managerID ? leagueTeamManagers.users[manager.managerID].is_owner : false;
 </script>
@@ -231,7 +234,7 @@
 
 <div class="manager" style="{retired ? "background-image: url(/retired.png); background-color: var(--ddd)": ""}" on:click={() => goto(`/manager?manager=${key}`)}>
     <div class="avatarHolder">
-        <img class="photo" src="{manager.photo}" alt="{manager.name}" />
+        <img class="photo" src="{photo}" alt="{manager.name}" />
         {#if commissioner}
             <div class="commissionerBadge">
                 <span>C</span>
@@ -254,37 +257,5 @@
                 </div>
             {/if}
         </div>
-        <!-- Preferred contact -->
-        <div class="infoSlot">
-            {#if manager.preferredContact}
-                <div class="infoIcon">
-                    <img class="infoImg" src="/{manager.preferredContact}.png" alt="{manager.preferredContact}"/>
-                </div>
-                <div class="infoAnswer">
-                    {manager.preferredContact}
-                </div>
-            {:else}
-                <div class="infoIcon question">
-                    <img class="infoImg" src="/managers/question.jpg" alt="favorite team"/>
-                </div>
-            {/if}
-        </div>
-        <!-- Rebuild mode (optional and only displayed for dynasty leagues) -->
-        {#if dynasty}
-            <div class="infoSlot infoRebuild">
-                {#if manager.mode}
-                    <div class="infoIcon">
-                        <img class="infoImg" src="/{manager.mode.replace(' ', '%20')}.png" alt="win now or rebuild"/>
-                    </div>
-                    <div class="infoAnswer">
-                        {manager.mode}
-                    </div>
-                {:else}
-                    <div class="infoIcon question">
-                        <img class="infoImg" src="/managers/question.jpg" alt="favorite team"/>
-                    </div>
-                {/if}
-            </div>
-        {/if}
     </div>
 </div>

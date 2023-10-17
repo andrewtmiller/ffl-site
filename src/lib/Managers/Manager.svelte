@@ -6,15 +6,15 @@
 	import TransactionsPage from '../Transactions/TransactionsPage.svelte';
     import { goto } from '$app/navigation';
     import ManagerFantasyInfo from './ManagerFantasyInfo.svelte';
-    import ManagerAwards from './ManagerAwards.svelte';
     import { onMount } from 'svelte';
-	import { getDatesActive, getRosterIDFromManagerID, getTeamNameFromTeamManagers } from '$lib/utils/helperFunctions/universalFunctions';
+	import { getDatesActive, getRosterIDFromManagerID, getAvatarFromTeamManagers, getTeamNameFromTeamManagers } from '$lib/utils/helperFunctions/universalFunctions';
 
     export let manager, managers, rostersData, leagueTeamManagers, rosterPositions, transactionsData, awards, records;
 
     let transactions = transactionsData.transactions;
 
     $: viewManager = managers[manager];
+    console.log(managers[manager]);
 
     $: datesActive = getDatesActive(leagueTeamManagers, viewManager.managerID);
 
@@ -30,6 +30,10 @@
     $: coOwners = year && rosterID ? leagueTeamManagers.teamManagersMap[year][rosterID].managers.length > 1 : roster.co_owners;
 
     $: commissioner = viewManager.managerID ? leagueTeamManagers.users[viewManager.managerID].is_owner : false;
+
+    $: avatar = getAvatarFromTeamManagers(leagueTeamManagers, rosterID);
+
+    $: photo = (viewManager.photo != '/managers/name.jpg') ? viewManager.photo : avatar;
 
     let players, playersInfo;
     let loading = true;
@@ -224,7 +228,8 @@
 
 <div class="managerContainer">
     <div class="managerConstrained">
-        <img class="managerPhoto" src="{viewManager.photo}" alt="manager"/>
+        <img class="managerPhoto" src="{photo}" alt="manager"/>
+
         <h2>
             {viewManager.name}
             <div class="teamSub">{coOwners ? 'Co-' : ''}Manager of <i>{getTeamNameFromTeamManagers(leagueTeamManagers, rosterID, year)}</i></div>
@@ -232,6 +237,7 @@
         
         <div class="basicInfo">
             <span class="infoChild">{viewManager.location || 'Undisclosed Location'}</span>
+
             {#if viewManager.managerID && datesActive.start}
                 <span class="seperator">|</span>
                 {#if datesActive.end}
@@ -303,7 +309,7 @@
         <ManagerFantasyInfo {viewManager} {players} {changeManager} />
     {/if}
 
-    <ManagerAwards {leagueTeamManagers} tookOver={viewManager.tookOver} {awards} {records} {rosterID} managerID={viewManager.managerID} />
+    <!-- <ManagerAwards {leagueTeamManagers} tookOver={viewManager.tookOver} {awards} {records} {rosterID} managerID={viewManager.managerID} /> -->
 
     {#if loading}
         <!-- promise is pending -->

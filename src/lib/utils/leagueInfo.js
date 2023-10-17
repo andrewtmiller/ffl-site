@@ -5,6 +5,8 @@ export const dues = 100; // (optional) used in template constitution page
 export const dynasty = true; // true for dynasty leagues, false for redraft and keeper
 export const enableBlog = false; // requires VITE_CONTENTFUL_ACCESS_TOKEN and VITE_CONTENTFUL_SPACE environment variables
 
+export const switchYear = 2023;
+
 /*   STEP 2   */
 export const homepageText = `
   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
@@ -31,6 +33,7 @@ export const managers = [
     bio: "Lorem ipsum...",
     photo: "/managers/name.jpg", // square ratio recommended (no larger than 500x500)
     favoriteTeam: "min", // (optional) favorite NFL team, (follows convention: nyj, sea, mia, etc.) MUST BE LOWERCASE
+    espnID: "A4263CAD-66DF-44CC-B831-B5B81B178250",
     // rival: {
     //   name: "Rival", // Can be anything (usually your rival's name)
     //   link: 6, // manager array number within this array, or null to link back to all managers page
@@ -43,6 +46,7 @@ export const managers = [
     bio: "Lorem ipsum...",
     photo: "/managers/name.jpg",
     favoriteTeam: "car",
+    espnID: "539D8722-D0C4-4BF9-95CC-6837FFC2A143",
   },
   {
     managerID: "994351341084467200",
@@ -50,6 +54,7 @@ export const managers = [
     bio: "Lorem ipsum...",
     photo: "/managers/name.jpg",
     favoriteTeam: "car",
+    espnID: "DD43B98D-43D9-4E00-9EB7-DD8FA6F3E97B",
   },
   {
     managerID: "994352692539576320",
@@ -57,6 +62,7 @@ export const managers = [
     bio: "Lorem ipsum...",
     photo: "/managers/name.jpg",
     favoriteTeam: "pit",
+    espnID: "02099D11-416B-45DC-B45F-53FAC09FAF41",
   },
   {
     managerID: "994353507526365184",
@@ -64,6 +70,7 @@ export const managers = [
     bio: "Lorem ipsum...",
     photo: "/managers/name.jpg",
     favoriteTeam: "car",
+    espnID: "7321408A-024B-428E-960E-61ED8A964E71",
   },
   {
     managerID: "994353814108995584",
@@ -71,6 +78,7 @@ export const managers = [
     bio: "Lorem ipsum...",
     photo: "/managers/name.jpg",
     favoriteTeam: "nyj",
+    espnID: "55A0FD56-8BF6-4300-A0FD-568BF6E30022",
   },
   {
     managerID: "994354537852932096",
@@ -78,6 +86,7 @@ export const managers = [
     bio: "Lorem ipsum...",
     photo: "/managers/name.jpg",
     favoriteTeam: "kc",
+    espnID: "2223A17A-2AC0-4132-A3A1-7A2AC0A13248",
   },
   {
     managerID: "994751508946280448",
@@ -85,6 +94,7 @@ export const managers = [
     bio: "Lorem ipsum...",
     photo: "/managers/name.jpg",
     favoriteTeam: "was",
+    espnID: "E1164B90-529B-4DA8-90F2-C13AD32BD82E",
   },
 ];
   
